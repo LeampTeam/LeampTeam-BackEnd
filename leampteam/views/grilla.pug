@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  table#example.display(style='width:100%')
+    thead
+      tr
+        th Id
+        th Nombre
+        th Apellido
+        th Email 
+        th Acciones      
+    tfoot
+      tr
+        th Id      
+        th Nombre
+        th Apellido
+        th Email
+        th Acciones        
+  script(src="/javascripts/datatable.js")

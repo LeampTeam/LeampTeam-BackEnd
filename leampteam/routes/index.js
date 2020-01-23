@@ -1,9 +1,8 @@
+var index=require('../controller/index')
 var express = require('express');
 var router = express.Router();
+var check=require('../middleware/checkSingIn')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/index',check.checkSignIn,index.index);
 
 module.exports = router;
