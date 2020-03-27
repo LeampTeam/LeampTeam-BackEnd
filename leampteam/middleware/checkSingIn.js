@@ -1,12 +1,25 @@
 function checkSignIn(req, res,next){
-    if(req.session.user){
-       next();     //If session exists, proceed to page
+    if (req.session.logueado) {
+       console.log(req.sessionID)
+       console.log(req.session)
+      return next();
     } else {
-       res.redirect('/users/login')
+       res.redirect('/')
     }
  }
 
+ function checkSignInLogin(req, res,next){
+   if (req.session.logueado) {
+      console.log(req.sessionID)
+      console.log(req.session)
+      res.redirect('/index/index')
+   } else {
+      next()
+   }
+}
+
  module.exports={
-checkSignIn
+checkSignIn,
+checkSignInLogin
     
 }

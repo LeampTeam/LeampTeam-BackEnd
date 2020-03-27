@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
+const mongoose = require('mongoose');
+var check=require('./middleware/checkSingIn')
 var app = express();
 
 // view engine setup
@@ -20,15 +22,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-var payload=new Date().getMilliseconds().toString()
+var payload='Es un secreto'
+console.log(payload)
+mongoose.connect('mongodb://localhost:27017/almacenBackEnd', {useNewUrlParser: true, useUnifiedTopology: true});
 app.use(session({secret: payload,
-  resave: true,
-  saveUninitialized: true 
+  resave: false,
+  saveUninitialized: true,
+  store: new MongoStore({
+    mongooseConnection:mongoose.connection
+  })
 }));
 
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
-app.get('/',function(req,res){
+app.get('/',check.checkSignInLogin,function(req,res){
   res.render('home',{logueado:true})
 });
 

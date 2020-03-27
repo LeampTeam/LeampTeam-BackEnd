@@ -30,11 +30,16 @@ function register(req,res){
     res.render('register',{user,logueado:true})
 }
 function logout(req, res){
-    req.session.destroy(function(){
-       console.log("user logged out.")
-    });
-    res.redirect('/users/login');
-}
+    req.session.destroy(function(err) {
+        if(err) {
+          return next(err);
+        } else {
+            res.redirect('/');
+        }
+        
+      });
+    }
+    
 
 function saveUser(req,res){
     var params=req.body;
@@ -98,7 +103,8 @@ function loginUser(req,res){
         if(user){
             bcrypt.compare(pass,user.password,(err,check)=>{
                 if(check){
-                    req.session.user=user
+                    req.session.userId = {nombre:user.name}
+                    req.session.logueado=true
                     return res.redirect('/index/index')
                 }else{
                     return res.render('login',{message:'algunos de los datos esta mal'})

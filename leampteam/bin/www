@@ -28,7 +28,7 @@ var server = http.createServer(app);
  */
 
 server.listen(port);
-mongoose.connect('mongodb://localhost:27017/almacenBackEnd', {useNewUrlParser: true, useUnifiedTopology: true});
+
 server.on('error', onError);
 server.on('listening', onListening);
 
