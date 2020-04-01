@@ -7,6 +7,7 @@ var UserShema= Schema({
     email:String,
     password:String,   
     CreateAt:String,
+    img:String,
     eliminado:Boolean
 })
 

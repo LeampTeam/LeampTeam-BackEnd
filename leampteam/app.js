@@ -2,12 +2,15 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+
 var logger = require('morgan');
 var session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
+var usersupload = require('./routes/upload');
 const mongoose = require('mongoose');
 var check=require('./middleware/checkSingIn')
 var app = express();
@@ -17,6 +20,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 app.set('view engine', 'pug');
 
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -25,18 +29,36 @@ app.use(express.static(path.join(__dirname, 'public')));
 var payload='Es un secreto'
 console.log(payload)
 mongoose.connect('mongodb://localhost:27017/almacenBackEnd', {useNewUrlParser: true, useUnifiedTopology: true});
-app.use(session({secret: payload,
+
+app.use(session({
+  secret: payload,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   store: new MongoStore({
-    mongooseConnection:mongoose.connection
-  })
+    mongooseConnection:mongoose.connection,
+    autoRemove: 'native',
+    ttl: 24 * 60 * 60
+  }),
+  cookie: { 
+    maxAge: 24*3600000,
+    httpOnly: true,
+    secure: false,
+    sameSite:"lax",
+    path:'/'
+
+   },
+   rolling:true
 }));
 
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
+
+app.use('/upload', usersupload);
 app.get('/',check.checkSignInLogin,function(req,res){
-  res.render('home',{logueado:true})
+  
+  
+  
+res.render('home')
 });
 
 // catch 404 and forward to error handler

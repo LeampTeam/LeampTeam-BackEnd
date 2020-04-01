@@ -11,22 +11,37 @@ html
     script(src='https://code.jquery.com/jquery-3.3.1.js')
     script(src='https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js')
     script(src="https://kit.fontawesome.com/c178ca7f94.js" crossorigin="anonymous")
+    link(rel="shortcut icon" href="http://example.com/favicon.ico")
   body
-    .row
-      .col-md-2.border-dark.border-left.border-top
-        a(href='/index/index')
-          img.img-responsive.rounded(src='/images/limpteam.jpg' alt='...') 
-      .col-md-9.border.border-dark
-        if !logueado
-          a(href='/users/logout') Cerrar Sesion
-    .row
-      .col-md-2.border.border-dark
-        if !logueado
-          ul.nav.flex-column
-            li.nav-item
-              a.nav-link.active(href='/users/listUser') Usuario
-            li.nav-item
-              a.nav-link(href='#') Productos
-      .col-md-9
-        .container-fluid.contenedor
-          block content
+    .jumbotron-fluid.contenedor
+      .container-fluid.contenedor
+        .row.contenedorheader
+          .col-md-2.border-dark.border
+            a(href='/index/index')
+              .icono
+          .col-md-10.border-top.border-rigth.border-bottom.border-dark
+            .row.contenedor
+              .col-md-10.p-4.text-center
+                if data
+                  h3.bienvenido.text-center.align-middle.d-inline Buen dia #{data.name} #{data.surname}
+              .col-md-2
+                if data
+                  #dropdownMenuButton.avatar(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+                     img(src="http://127.0.0.1:3000/upload/getImage/"+data.img alt="")
+                  .dropdown-menu(aria-labelledby='dropdownMenuButton')
+                    form(action='http://127.0.0.1:3000/upload/upload' enctype='multipart/form-data' method='post')
+                      .form-group
+                        label(for='exampleFormControlFile1') Cambiar Avatar
+                        input#exampleFormControlFile1.form-control-file(type='file' name="foto")
+                        button.btn.btn-primary.mb-2(type='submit') Cambiar
+                    a.dropdown-item(href='/users/logout') Cerrar Sesion
+        .row.contenedorbody
+          .col-md-2.border.border-top-0.border-dark.p-3
+            if data
+              ul.nav.flex-column
+                li.nav-item.p-3
+                  a.nav-link.btn.btn-info(href='/users/listUser') Usuario
+                li.nav-item.p-3
+                  a.nav-link.btn.btn-info(href='#') Productos
+          .col-md-10
+              block content

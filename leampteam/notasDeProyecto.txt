@@ -1,0 +1,5 @@
+1-. Cuando abris el browser se genera dos cokies.
+ Esto hace que cuando quiera cargar una imagen se me desloguee.
+ Cuando accedo a otra url una de las cokies se elimina.
+
+2-. 

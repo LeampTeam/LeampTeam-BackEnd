@@ -13,8 +13,8 @@ $(document).ready(function() {
             { "data": "surname" },
             { "data": "email" },            
             {"render": function ( data, type, row ) {
-                return '<button type="button" id="'+row._id+'" class="btn btn-light"><i class="fas fa-pencil-alt"></i></button>'
-                +'<button type="button" id="'+row._id+'" class="btn btn-light"><i class="fas fa-trash"></i></button>'
+                return '<a type="button" href=/users/edit/'+row._id+' class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
+                +'<a type="button" href=/users/delete/'+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></a>'
             }
         }
         ],

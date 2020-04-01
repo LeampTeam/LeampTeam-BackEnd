@@ -1,7 +1,6 @@
 function checkSignIn(req, res,next){
-    if (req.session.logueado) {
-       console.log(req.sessionID)
-       console.log(req.session)
+    if (req.session.iduser) {
+     
       return next();
     } else {
        res.redirect('/')
@@ -9,9 +8,8 @@ function checkSignIn(req, res,next){
  }
 
  function checkSignInLogin(req, res,next){
-   if (req.session.logueado) {
-      console.log(req.sessionID)
-      console.log(req.session)
+   if (req.session.iduser) {
+     
       res.redirect('/index/index')
    } else {
       next()

@@ -1,20 +1,52 @@
-body {
-  
+
+html,body{
+  margin:0px;
+  height:100%;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+  }
 
 a {
   color: #00B7FF;
 }
 
-img{
-  
-  width:100%;
-/* max-width: 400px; */
-height: 100px;
 
+.icono{
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/limpteam.jpg');
+  background-size: 100% 100%;
+  
 }
 .contenedor{
-  padding: 10px;
-  height: 80vh;
+  height: 100%;
+  
 }
+.contenedorVista{
+ margin:1%;
+ padding: 1%;
+}
+.contenedorbody{
+ 
+  height: 87%;
+}
+.contenedorheader{
+  height: 75px;
+}
+.avatar{
+ border-radius: 50px;
+  background-size: 100% 100%;
+ 
+  width: 100%;
+  height: 100%;
+}
+.dropdown-menu{
+  left: -45px!important;
+}
+img {
+  width:75px;
+  height: 80%;
+  margin-top:7px
+}
+
+
+
