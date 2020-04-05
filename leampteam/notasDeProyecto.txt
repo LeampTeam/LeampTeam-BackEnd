@@ -2,4 +2,4 @@
  Esto hace que cuando quiera cargar una imagen se me desloguee.
  Cuando accedo a otra url una de las cokies se elimina.
 
-2-. 
+ 2.-cuando no hay session se genera una 

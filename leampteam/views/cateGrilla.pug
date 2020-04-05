@@ -1,0 +1,26 @@
+extends layout
+
+block content
+  .container-fluid.contenedor.contenedorVista
+    .card
+      .card-header
+        .row
+          .col-md-10
+            h4 Lista de Categorias
+          .col-md-2
+            a.btn.btn-light(type='button' href='/categoria/create')
+             i.fas.fa-plus-square 
+              | Crear Categoria
+      .card-body
+        table#example.display(style='width:100%')
+          thead
+            tr
+              th Id
+              th Nombre
+              th Acciones      
+          tfoot
+            tr
+              th Id      
+              th Nombre
+              th Acciones        
+  script(src="/javascripts/datatableCategoria.js")

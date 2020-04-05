@@ -9,8 +9,11 @@ const MongoStore = require('connect-mongo')(session);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
 var usersupload = require('./routes/upload');
+var categoriaRouter = require('./routes/categoria');
+var fraganciaRouter = require('./routes/fragancia');
+var productoRouter = require('./routes/producto');
+
 const mongoose = require('mongoose');
 var check=require('./middleware/checkSingIn')
 var app = express();
@@ -52,8 +55,10 @@ app.use(session({
 
 app.use('/index', indexRouter);
 app.use('/users', usersRouter);
-
 app.use('/upload', usersupload);
+app.use('/categoria', categoriaRouter);
+app.use('/fragancia', fraganciaRouter);
+app.use('/producto', productoRouter);
 app.get('/',check.checkSignInLogin,function(req,res){
   
   
