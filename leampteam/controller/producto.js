@@ -104,6 +104,7 @@ function edit(req,res){
 
 function editPost(req,res){
     let params=req.body
+    console.log(params)
     let pro={
         name:params.name,
         code:params.code,
@@ -111,17 +112,25 @@ function editPost(req,res){
         stock:params.stock,
         price:params.price,
         
-        fragancia:params.fragancia,
+       
         categoria:params.categoria,
         
     }
+    if(params.fragancia==0){
+        pro.esFragancia=false
+        pro.fragancia=null
+    }else{
+        pro.esFragancia=true
+        pro.fragancia=params.fragancia
+    }
+    console.log(pro)
 
-    Fragancia.findByIdAndUpdate(params.id, pro, { new: true }, (err, userUpdated) => {
+    Producto.findByIdAndUpdate(params.id, pro, { new: true }, (err, userUpdated) => {
         if (err) return res.status(500).send({ message: 'Erro en la peticion' })
 
         if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
 
-        return res.redirect('/fragancia/grilla')
+        return res.redirect('/producto/grilla')
     })
 }
 

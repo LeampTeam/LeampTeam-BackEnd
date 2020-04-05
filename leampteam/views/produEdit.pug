@@ -13,6 +13,7 @@ block content
                              | Volver
             .card-body
                 form(action = "/producto/edit", method = "POST")
+                    input#exampleInputEmail1.form-control(type='hidden' aria-describedby='emailHelp' placeholder='Enter email' name='id' value=producto!=''?producto._id:'')
                     .form-group
                         label(for='exampleInputEmail1') Nombre
                         input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='name' value= producto!=''?producto.name:'')
