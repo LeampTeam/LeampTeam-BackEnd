@@ -13,6 +13,7 @@ var usersupload = require('./routes/upload');
 var categoriaRouter = require('./routes/categoria');
 var fraganciaRouter = require('./routes/fragancia');
 var productoRouter = require('./routes/producto');
+var comboRouter = require('./routes/combo');
 
 const mongoose = require('mongoose');
 var check=require('./middleware/checkSingIn')
@@ -59,6 +60,7 @@ app.use('/upload', usersupload);
 app.use('/categoria', categoriaRouter);
 app.use('/fragancia', fraganciaRouter);
 app.use('/producto', productoRouter);
+app.use('/combo', comboRouter);
 app.get('/',check.checkSignInLogin,function(req,res){
   
   
