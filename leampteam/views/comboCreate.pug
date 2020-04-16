@@ -1,6 +1,21 @@
 extends layout
 
 block content
+    #cantidadModal.modal(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title Cargar Cantidad
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+          .modal-body
+            p Agregara el siguente articulo
+            p.pmodal
+            input#idProd.form-control(type='hidden' aria-describedby='emailHelp')
+            label(for='exampleInputEmail1') Cantidad
+            input#cantidad.form-control(type='number' aria-describedby='emailHelp' )
+          .modal-footer
+            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+            button.btn.btn-primary#aceptarModal(type='button') Aceptar
     .container-fluid.contenedor.contenedorVista
         .card
             .card-header
@@ -12,7 +27,8 @@ block content
                             i.fas.fa-arrow-left
                              | Volver
             .card-body
-                form(action = "/combo/create", method = "POST")
+                form#formCombo(action = "/combo/create", method = "POST")
+                    input#productos.form-control(type='hidden' aria-describedby='emailHelp' placeholder='Enter email' name='productos')
                     .form-group
                         label(for='exampleInputEmail1') Nombre
                         input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='name' value= combo!=''?combo.name:'')
@@ -21,7 +37,7 @@ block content
                         input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='description' value= combo!=''?combo.description:'')
                     .form-group
                         label(for='exampleInputEmail1') Codigo
-                        input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='code' value= combo!=''?combo.code:'')
+                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='code' value= combo!=''?combo.code:'')
                     .form-group
                         label(for='exampleInputEmail1') Stock
                         input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='stock' value= combo!=''?combo.stock:'')
@@ -30,10 +46,19 @@ block content
                         input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='price' value= combo!=''?combo.price:'')
                     .form-group
                         label(for='exampleInputEmail1') Productos
-                        br
-                        select.selectpicker(multiple='' data-live-search="true")
-                         option(value=0) Selecione una fragancia
-                            each val in productos
-                                option(value=val._id) #{val.description}  
-                    button.btn.btn-primary(type='submit') Submit
+                        input#searchproducto.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email'  )
+                    .dropdown-menu.searched
+                    .border.border-dark.rounded.p-1.bg-secondary
+                        h4 Productos Cargados
+                        table.table
+                            thead
+                                tr
+                                    th.d-none(scope='col') id
+                                    th(scope='col') Codigo
+                                    th(scope='col') Descripcion
+                                    th(scope='col') Precio
+                                    th(scope='col') Cantidad
+                            tbody#tbody
+                    button#submit.btn.btn-primary(type='submit') Submit
                     p(style='color:red') #{message}
+    script(src="/javascripts/combo.js")

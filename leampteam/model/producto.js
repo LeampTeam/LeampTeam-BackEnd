@@ -7,7 +7,7 @@ var ProducSchema=Schema({
     name:String,
     description:String,
     price:Number,
-    code:Number,  
+    code:String,  
     stock:Number,
     crateAt:String,
     img:String,
@@ -20,4 +20,4 @@ var ProducSchema=Schema({
 
 
 
-module.exports=mongoose.model('Product',ProducSchema)
+module.exports=mongoose.model('Producto',ProducSchema)

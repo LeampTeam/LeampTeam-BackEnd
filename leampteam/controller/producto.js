@@ -102,6 +102,28 @@ function edit(req,res){
     })
 }
 
+function getProducts(req,res){
+    
+    let search=req.body.search
+    console.log(search)
+        Producto.find( {description: new RegExp(search,"i")},function(err,producto){
+            
+                console.log(producto)    
+            return res.status(200).send({producto})
+        })
+}
+
+function getProduct(req,res){
+    
+    let id=req.body.id
+    console.log(id)
+        Producto.findById( id,function(err,producto){
+            
+                console.log(producto)    
+            return res.status(200).send({producto})
+        })
+}
+
 function editPost(req,res){
     let params=req.body
     console.log(params)
@@ -140,6 +162,8 @@ module.exports={
     create,
     createPost,
     edit,
-    editPost
+    editPost,
+    getProduct,
+    getProducts
 
 }

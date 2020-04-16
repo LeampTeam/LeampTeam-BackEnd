@@ -13,7 +13,11 @@ function grilla(req,res){
 }
 
 function combos(req,res){
-    Combo.find({eliminado: { $ne: true }},'_id description price code stock').populate('productos')
+    Combo.find({eliminado: { $ne: true }},'_id description price code stock',)
+    .populate({
+         path: 'producto',
+         select: 'code  description -_id'
+    })
     .exec((err,combos)=>{
         console.log(combos)
         res.json({
@@ -30,6 +34,7 @@ function create(req,res){
     
      infousu.traerInformacionUsuario(id).then(function(data){
         Producto.find({},function(error,productos){
+       
         let combo=new Combo()
             res.render('comboCreate',{data,combo,productos});
         })
@@ -38,31 +43,28 @@ function create(req,res){
 
 function createPost(req,res){
     let params=req.body;
+    let test=JSON.parse(params.productos)
+    console.log(test)
     console.log(params)
-    let producto =new Producto();
+    let combo =new Combo();
     if(params.name ){
-        producto.name=params.name;
-        producto.code=params.code;
-        producto.description=params.description;
-        producto.stock=params.stock;
-        producto.price=params.price;
-        if(params.fragancia==0){
-            producto.esFragancia=false
-            producto.fragancia=null
-        }else{
-            producto.esFragancia=true
-            producto.fragancia=params.fragancia
+        for(let i=0;i<test.length;i++){
+            combo.producto.push(test[i].id)
         }
-        
-        producto.categoria=params.categoria;
-        producto.img=null  
-        producto.CreateAt=moment().unix();
-        producto.eliminado=false
-        producto.save((err,userStored)=>{
+        combo.catidadProd=params.productos
+        combo.name=params.name;
+        combo.code=params.code;
+        combo.description=params.description;
+        combo.stock=params.stock;
+        combo.price=params.price;
+        combo.img=null  
+        combo.CreateAt=moment().unix();
+        combo.eliminado=false
+        combo.save((err,userStored)=>{
             if(err) return res.render('register',{message:'Error al guardar el usuario'})
 
             if(userStored){
-                res.redirect('/producto/grilla');
+                res.redirect('/combo/grilla');
             }else{
                 res.render('produCreate',{message:'Error al guardar'})
             }
@@ -82,18 +84,18 @@ function createPost(req,res){
 //      infousu.traerInformacionUsuario(id).then(function(data){
 //             console.log(data)
 
-//                 Producto.findById(idEdit,function(err,producto){
+//                 Producto.findById(idEdit,function(err,combo){
 //                     Categoria.find({},function(error,categorias){
 //                         Fragancia.find({},function(error,fragancias){
 //                             let checkedo="";
 //                             console.log(categorias)
-//                             if(producto.esFragancia){
+//                             if(combo.esFragancia){
 //                                 checkedo=true
 //                             }else{
 //                                 checkedo=false
 //                             }
-//                             console.log(producto)
-//                     res.render('produEdit',{data,producto,categorias,fragancias,checkedo:checkedo});
+//                             console.log(combo)
+//                     res.render('produEdit',{data,combo,categorias,fragancias,checkedo:checkedo});
 //                 })
 //             })
 //         }).populate('categoria').populate('fragancia')
@@ -128,7 +130,7 @@ function createPost(req,res){
 
 //         if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
 
-//         return res.redirect('/producto/grilla')
+//         return res.redirect('/combo/grilla')
 //     })
 // }
 

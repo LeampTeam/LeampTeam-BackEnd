@@ -7,11 +7,12 @@ var ComboSchema=Schema({
     name:String,
     description:String,
     price:Number,
-    code:Number,  
+    code:String,  
     stock:Number,
+    catidadProd:String,
     crateAt:String,
     img:String,
-    productos: [{ type: Schema.Types.ObjectId, ref: 'Producto' }],
+    producto: [{ type: Schema.Types.ObjectId, ref: 'Producto' }],
     eliminado:Boolean
 
 })

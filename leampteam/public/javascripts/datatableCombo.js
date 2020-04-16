@@ -10,9 +10,11 @@ $(document).ready(function() {
             
             { "data": "_id" },
             { "render":function(data,type,row){
+                console.log(row)
+               
                 let li="";
-               for(let pro in row.productos){
-                  li+=`<li>${pro.code}  ${pro.description}</li>`
+               for(let i=0;i< row.producto.length;i++){
+                  li+=`<li>${row.producto[i].code}  ${row.producto[i].description}</li>`
                }
                return `<ul>${li}</ul>`
             } 

@@ -24,7 +24,7 @@ function cambiarAvatar(req,res){
 
                 if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
 
-                return res.redirect('/index/index')
+                return res.redirect('/')
             })
         } else {
             removeFilesOfUploads(res, file_path, 'La extencion no es valida')
