@@ -25,8 +25,8 @@ $(document).ready(function() {
             { "data": "stock" },
                   
             {"render": function ( data, type, row ) {
-                return '<a type="button" href=/producto/edit/'+row._id+' class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
-                +'<a type="button" href=/producto/delete/'+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></a>'
+                return '<a type="button" href=/combo/edit/'+row._id+' class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
+                +'<a type="button" href=/combo/delete/'+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></a>'
             }
         }
         ],

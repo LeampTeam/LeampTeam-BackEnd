@@ -66,80 +66,70 @@ function createPost(req,res){
             if(userStored){
                 res.redirect('/combo/grilla');
             }else{
-                res.render('produCreate',{message:'Error al guardar'})
+                res.render('comboCreate',{message:'Error al guardar'})
             }
         })
     }else{
         categoria.name=params.name;
         categoria.CreateAt=moment().unix();
-        res.render('produCreate',{user,message:'Completa todos los campos'}
+        res.render('comboCreate',{user,message:'Completa todos los campos'}
         )
     }
 }
 
-// function edit(req,res){
-//     let id=req.session.iduser;
-//     let idEdit=req.params.id
+function edit(req,res){
+    let id=req.session.iduser;
+    let idEdit=req.params.id
     
-//      infousu.traerInformacionUsuario(id).then(function(data){
-//             console.log(data)
+     infousu.traerInformacionUsuario(id).then(function(data){
+            console.log(data)
 
-//                 Producto.findById(idEdit,function(err,combo){
-//                     Categoria.find({},function(error,categorias){
-//                         Fragancia.find({},function(error,fragancias){
-//                             let checkedo="";
-//                             console.log(categorias)
-//                             if(combo.esFragancia){
-//                                 checkedo=true
-//                             }else{
-//                                 checkedo=false
-//                             }
-//                             console.log(combo)
-//                     res.render('produEdit',{data,combo,categorias,fragancias,checkedo:checkedo});
-//                 })
-//             })
-//         }).populate('categoria').populate('fragancia')
-//     })
-// }
+                Combo.findById(idEdit,function(err,combo){
+                   
+                    res.render('comboEdit',{data,combo});
+                })
+            })
+    
+}
 
-// function editPost(req,res){
-//     let params=req.body
-//     console.log(params)
-//     let pro={
-//         name:params.name,
-//         code:params.code,
-//         description:params.description,
-//         stock:params.stock,
-//         price:params.price,
+function editPost(req,res){
+    let params=req.body
+    console.log(params)
+    let pro={
+        name:params.name,
+        code:params.code,
+        description:params.description,
+        stock:params.stock,
+        price:params.price,
         
        
-//         categoria:params.categoria,
+        categoria:params.categoria,
         
-//     }
-//     if(params.fragancia==0){
-//         pro.esFragancia=false
-//         pro.fragancia=null
-//     }else{
-//         pro.esFragancia=true
-//         pro.fragancia=params.fragancia
-//     }
-//     console.log(pro)
+    }
+    if(params.fragancia==0){
+        pro.esFragancia=false
+        pro.fragancia=null
+    }else{
+        pro.esFragancia=true
+        pro.fragancia=params.fragancia
+    }
+    console.log(pro)
 
-//     Producto.findByIdAndUpdate(params.id, pro, { new: true }, (err, userUpdated) => {
-//         if (err) return res.status(500).send({ message: 'Erro en la peticion' })
+    Producto.findByIdAndUpdate(params.id, pro, { new: true }, (err, userUpdated) => {
+        if (err) return res.status(500).send({ message: 'Erro en la peticion' })
 
-//         if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
+        if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
 
-//         return res.redirect('/combo/grilla')
-//     })
-// }
+        return res.redirect('/combo/grilla')
+    })
+}
 
 module.exports={
     grilla,
     combos,
     create,
     createPost,
-    // edit,
-    // editPost
+    edit,
+    editPost
 
 }

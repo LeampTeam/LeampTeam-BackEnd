@@ -1,6 +1,7 @@
 var Producto= require('../model/producto');
 var Categoria= require('../model/categoria');
 var Fragancia= require('../model/fragancia');
+var Marca= require('../model/marca');
 var path = require('path');
 var moment = require('moment')
 
@@ -14,15 +15,16 @@ function grilla(req,res){
 }
 
 function productos(req,res){
-    Producto.find({eliminado: { $ne: true }},'_id name description price code stock')
-    .exec((err,producto)=>{
-        res.json({
-            data:producto,
-            draw: 1,
-            recordsTotal: producto.length,
-            recordsFiltered: producto.length,
-        })  
-    })
+    Producto.find({eliminado: { $ne: true }},'_id name description price code stock marca.name')
+        .populate('marca')
+        .exec((err,producto)=>{
+            res.json({
+                data:producto,
+                draw: 1,
+                recordsTotal: producto.length,
+                recordsFiltered: producto.length,
+            })  
+        })
 }
 
 function create(req,res){
@@ -32,7 +34,10 @@ function create(req,res){
          let producto=new Producto()
          Categoria.find({},function(error,categorias){
             Fragancia.find({},function(error,fragancias){
-                res.render('produCreate',{data,producto,categorias,fragancias});
+                Marca.find({},function(error,marcas){
+                    res.render('produCreate',{data,producto,categorias,fragancias,marcas});
+                })
+                
             })
          })
      })
@@ -48,6 +53,7 @@ function createPost(req,res){
         producto.description=params.description;
         producto.stock=params.stock;
         producto.price=params.price;
+        producto.marca=params.marca;
         if(params.fragancia==0){
             producto.esFragancia=false
             producto.fragancia=null
@@ -57,6 +63,7 @@ function createPost(req,res){
         }
         
         producto.categoria=params.categoria;
+        producto.marca=params.marca;
         producto.img=null  
         producto.CreateAt=moment().unix();
         producto.eliminado=false
@@ -86,19 +93,21 @@ function edit(req,res){
 
                 Producto.findById(idEdit,function(err,producto){
                     Categoria.find({},function(error,categorias){
-                        Fragancia.find({},function(error,fragancias){
-                            let checkedo="";
-                            console.log(categorias)
-                            if(producto.esFragancia){
-                                checkedo=true
-                            }else{
-                                checkedo=false
-                            }
-                            console.log(producto)
-                    res.render('produEdit',{data,producto,categorias,fragancias,checkedo:checkedo});
+                        Marca.find({},function(error,marcas){
+                            Fragancia.find({},function(error,fragancias){
+                                let checkedo="";
+                                console.log(categorias)
+                                if(producto.esFragancia){
+                                    checkedo=true
+                                }else{
+                                    checkedo=false
+                                }
+                                console.log(producto)
+                        res.render('produEdit',{data,producto,categorias,fragancias,marcas,checkedo:checkedo});
+                    })
                 })
             })
-        }).populate('categoria').populate('fragancia')
+        }).populate('categoria').populate('fragancia').populate('marca')
     })
 }
 
@@ -133,9 +142,11 @@ function editPost(req,res){
         description:params.description,
         stock:params.stock,
         price:params.price,
+        marca:params.marca,
         
        
         categoria:params.categoria,
+        marca:params.marca
         
     }
     if(params.fragancia==0){

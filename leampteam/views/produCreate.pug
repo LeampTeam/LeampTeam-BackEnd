@@ -17,17 +17,23 @@ block content
                         label(for='exampleInputEmail1') Nombre
                         input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='name' value= producto!=''?producto.name:'')
                     .form-group
+                        label(for='exampleFormControlSelect1') Marca
+                        select#exampleFormControlSelect1.form-control(name='marca')
+                            option(value=0) Seleccione una Marca 
+                            each val in marcas
+                                option(value=val._id) #{val.name}
+                    .form-group
                         label(for='exampleInputEmail1') Descripcion
                         input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='description' value= producto!=''?producto.description:'')
                     .form-group
                         label(for='exampleInputEmail1') Codigo
-                        input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='code' value= producto!=''?producto.code:'')
+                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='code' value= producto!=''?producto.code:'')
                     .form-group
                         label(for='exampleInputEmail1') Stock
                         input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='stock' value= producto!=''?producto.stock:'')
                     .form-group
                         label(for='exampleInputEmail1') Precio
-                        input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='price' value= producto!=''?producto.price:'')
+                        input#exampleInputEmail1.form-control(type='number' step="any" aria-describedby='emailHelp' placeholder='Enter email' name='price' value= producto!=''?producto.price:'')
                     .form-group
                         label(for='exampleFormControlSelect1') Categoria
                         select#exampleFormControlSelect1.form-control(name='categoria')

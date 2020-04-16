@@ -3,22 +3,17 @@ $(document).ready(function() {
         "processing": true,
         "serverSide": true,
         "ajax": {
-            "url": '/producto/productos',
+            "url": '/marca/marcas',
             "type": "POST"
         },
         "columns": [
             
             { "data": "_id" },
-            { "data": "code" },
             { "data": "name" },
-            { "data": "marca.name" },
-            { "data": "description" },
-            { "data": "price" },
-            { "data": "stock" },
                   
             {"render": function ( data, type, row ) {
-                return '<a type="button" href=/producto/edit/'+row._id+' class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
-                +'<a type="button" href=/producto/delete/'+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></a>'
+                return '<a type="button" href=/marca/edit/'+row._id+' class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
+                +'<a type="button" href=/marca/delete/'+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></a>'
             }
         }
         ],

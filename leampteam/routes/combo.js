@@ -7,8 +7,8 @@ router.get('/grilla',check.checkSignIn,combo.grilla);
 router.post('/combos',check.checkSignIn,combo.combos);
 router.get('/create',check.checkSignIn,combo.create);
 router.post('/create',check.checkSignIn,combo.createPost);
-// router.get('/edit/:id',check.checkSignIn,producto.edit);
-// router.post('/edit',check.checkSignIn,producto.editPost);
+router.get('/edit/:id',check.checkSignIn,combo.edit);
+router.post('/edit',check.checkSignIn,combo.editPost);
 // router.post('/delete',check.checkSignIn,categoria.delete);
 
 module.exports = router;

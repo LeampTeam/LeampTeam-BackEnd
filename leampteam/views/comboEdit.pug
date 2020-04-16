@@ -1,56 +1,64 @@
 extends layout
 
 block content
+    #cantidadModal.modal(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title Cargar Cantidad
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+          .modal-body
+            p Agregara el siguente articulo
+            p.pmodal
+            input#idProd.form-control(type='hidden' aria-describedby='emailHelp')
+            label(for='exampleInputEmail1') Cantidad
+            input#cantidad.form-control(type='number' aria-describedby='emailHelp' )
+          .modal-footer
+            button.btn.btn-secondary(type='button' data-dismiss='modal') Close
+            button.btn.btn-primary#aceptarModal(type='button') Aceptar
     .container-fluid.contenedor.contenedorVista
         .card
             .card-header
                 .row
                     .col-md-10
-                        h4 Editar Producto
+                        h4 Crear Combo
                     .col-md-2
-                        a.btn.btn-light(type='button' href='/producto/grilla') 
+                        a.btn.btn-light(type='button' href='/combo/grilla') 
                             i.fas.fa-arrow-left
                              | Volver
             .card-body
-                form(action = "/producto/edit", method = "POST")
-                    input#exampleInputEmail1.form-control(type='hidden' aria-describedby='emailHelp' placeholder='Enter email' name='id' value=producto!=''?producto._id:'')
+                form#formCombo(action = "/combo/edit", method = "POST")
+                    input#productos.form-control(type='hidden' aria-describedby='emailHelp' placeholder='Enter email' name='productos' value= combo!=''?combo.cantidadProd:'')
                     .form-group
                         label(for='exampleInputEmail1') Nombre
-                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='name' value= producto!=''?producto.name:'')
+                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='name' value= combo!=''?combo.name:'')
                     .form-group
                         label(for='exampleInputEmail1') Descripcion
-                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='description' value= producto!=''?producto.description:'')
+                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='description' value= combo!=''?combo.description:'')
                     .form-group
                         label(for='exampleInputEmail1') Codigo
-                        input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='code' value= producto!=''?producto.code:'')
+                        input#exampleInputEmail1.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email' name='code' value= combo!=''?combo.code:'')
                     .form-group
                         label(for='exampleInputEmail1') Stock
-                        input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='stock' value= producto!=''?producto.stock:'')
+                        input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='stock' value= combo!=''?combo.stock:'')
                     .form-group
                         label(for='exampleInputEmail1') Precio
-                        input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='price' value= producto!=''?producto.price:'')
+                        input#exampleInputEmail1.form-control(type='number' aria-describedby='emailHelp' placeholder='Enter email' name='price' value= combo!=''?combo.price:'')
                     .form-group
-                        label(for='exampleFormControlSelect1') Categoria
-                        select#exampleFormControlSelect1.form-control(name='categoria')
-                            option(value=0) Seleccione una categoria 
-                            each val in categorias
-                                if (val.id === producto.categoria.id)
-                                    option(value=val._id  selected="selected") #{val.name}
-                                else
-                                    option(value=val._id ) #{val.name}
-                    .custom-control.custom-switch
-                        input#customSwitch1.custom-control-input(type='checkbox' checked=checkedo disabled)
-                        label.custom-control-label(for='customSwitch1') Tiene Fragancia
-                    .form-group.categoria(style="display:none")
-                        label(for='exampleFormControlSelect1') Fragancia
-                        select#exampleFormControlSelect1.form-control(name='fragancia')
-                            option(value=0) Selecione una fragancia
-                            if(producto.fragancia)
-                                each val in fragancias
-                                    if (val.id === producto.fragancia.id)
-                                        option(value=val._id  selected="selected") #{val.name}
-                                    else
-                                        option(value=val._id  ) #{val.name}
-                    button.btn.btn-primary(type='submit') Submit
+                        label(for='exampleInputEmail1') Productos
+                        input#searchproducto.form-control(type='text' aria-describedby='emailHelp' placeholder='Enter email'  )
+                    .dropdown-menu.searched
+                    .border.border-dark.rounded.p-1.bg-secondary
+                        h4 Productos Cargados
+                        table.table
+                            thead
+                                tr
+                                    th.d-none(scope='col') id
+                                    th(scope='col') Codigo
+                                    th(scope='col') Descripcion
+                                    th(scope='col') Precio
+                                    th(scope='col') Cantidad
+                            tbody#tbody
+                    button#submit.btn.btn-primary(type='submit') Submit
                     p(style='color:red') #{message}
-    script(src="/javascripts/producto.js")
+    script(src="/javascripts/comboEdit.js")
