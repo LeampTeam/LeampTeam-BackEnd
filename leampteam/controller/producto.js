@@ -3,6 +3,7 @@ var Categoria= require('../model/categoria');
 var Fragancia= require('../model/fragancia');
 var Marca= require('../model/marca');
 var path = require('path');
+var fs = require('fs');
 var moment = require('moment')
 
 var infousu=require('../middleware/informacionUsuario')
@@ -15,9 +16,10 @@ function grilla(req,res){
 }
 
 function productos(req,res){
-    Producto.find({eliminado: { $ne: true }},'_id name description price code stock marca.name')
+    Producto.find({eliminado: { $ne: true }},'_id name description price code stock marca.name img')
         .populate('marca')
         .exec((err,producto)=>{
+           console.log(producto)
             res.json({
                 data:producto,
                 draw: 1,
@@ -166,7 +168,55 @@ function editPost(req,res){
         return res.redirect('/producto/grilla')
     })
 }
+function uploadImage(req, res) {
+    console.log(req.body.productId)
+    var productid = req.body.productId
+    if (req.files) {
+        var file_path = req.files.image.path;
+        console.log(file_path)
+        var file_split = file_path.split('/');
+        console.log(file_split)
+        var file_name = file_split[2];
+        console.log(file_name)
+        var ext_split = file_name.split('.');
+        console.log(ext_split)
+        var file_ext = ext_split[1]
 
+        if (file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif') {
+            Producto.findByIdAndUpdate(productid, { img: file_name }, { new: true }, (err, productUpdated) => {
+                if (err) return res.status(500).send({ message: 'Erro en la peticion' })
+
+                if (!productUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
+
+                return res.redirect('/producto/grilla')
+            })
+        } else {
+            removeFilesOfUploads(res, file_path, 'La extencion no es valida')
+
+        }
+    } else {
+        return res.status(200).send({ message: 'No se han subido archivos' })
+    }
+}
+
+function getImageFile(req, res) {
+    var imageFile = req.params.img;
+    console.log(imageFile)
+    var pathFile = './imagenes/producto/' + imageFile
+
+    fs.exists(pathFile, (exists) => {
+        if (exists) {
+            res.sendFile(path.resolve(pathFile))
+        } else {
+            res.status(400).send({ message: 'El archivo no fue encotrado' })
+        }
+    })
+}
+function removeFilesOfUploads(res, file_path, message) {
+    fs.unlink(file_path, (err) => {
+        return res.status(200).send({ message: message })
+    })
+}
 module.exports={
     grilla,
     productos,
@@ -175,6 +225,8 @@ module.exports={
     edit,
     editPost,
     getProduct,
-    getProducts
+    getProducts,
+    uploadImage,
+    getImageFile
 
 }

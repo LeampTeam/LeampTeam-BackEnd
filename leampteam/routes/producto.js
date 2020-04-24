@@ -2,6 +2,8 @@ var producto=require('../controller/producto')
 var express = require('express');
 var router = express.Router();
 var check=require('../middleware/checkSingIn')
+var multipart=require('connect-multiparty')
+var md_upload = multipart({uploadDir:'./imagenes/producto'})
 
 router.get('/grilla',check.checkSignIn,producto.grilla);
 router.post('/productos',check.checkSignIn,producto.productos);
@@ -12,5 +14,7 @@ router.post('/edit',check.checkSignIn,producto.editPost);
 router.post('/getProductos',producto.getProducts);
 router.post('/getProducto',producto.getProduct);
 // router.post('/delete',check.checkSignIn,categoria.delete);
+router.post('/upload',md_upload,producto.uploadImage );
+router.get('/getImageFile/:img',producto.getImageFile );
 
 module.exports = router;
