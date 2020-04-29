@@ -10,8 +10,7 @@ $(document).ready(function() {
             
             { "data": "_id" },
             { "data": "code" },
-            { "data": "name" },
-            { "data": "marca.name" },
+            { "data": "categoria.name" },
             { "data": "description" },
             { "data": "price" },
             { "data": "stock" },

@@ -16,8 +16,8 @@ function grilla(req,res){
 }
 
 function productos(req,res){
-    Producto.find({eliminado: { $ne: true }},'_id name description price code stock marca.name img')
-        .populate('marca')
+    Producto.find({eliminado: { $ne: true }},'_id description price code stock categoria.name img')
+        .populate('categoria')
         .exec((err,producto)=>{
            console.log(producto)
             res.json({
@@ -55,6 +55,7 @@ function createPost(req,res){
         producto.description=params.description;
         producto.stock=params.stock;
         producto.price=params.price;
+        producto.priceMayor=params.priceMayor;
         producto.marca=params.marca;
         if(params.fragancia==0){
             producto.esFragancia=false
@@ -144,6 +145,7 @@ function editPost(req,res){
         description:params.description,
         stock:params.stock,
         price:params.price,
+        priceMayor:params.priceMayor,
         marca:params.marca,
         
        
