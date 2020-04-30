@@ -4,7 +4,7 @@ $(document).ready(function() {
         "serverSide": true,
         "ajax": {
             "url": '/combo/combos',
-            "type": "POST"
+          
         },
         "columns": [
             

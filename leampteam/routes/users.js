@@ -5,7 +5,7 @@ var check=require('../middleware/checkSingIn')
 
 
 /* GET users listing. */
-router.post('/users',user.getUsers );
+router.get('/users',user.getUsers );
 router.get('/listUser',check.checkSignIn,user.listUser );
 router.post('/register',user.saveUser );
 router.get('/create',check.checkSignIn,user.createUser );

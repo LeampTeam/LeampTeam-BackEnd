@@ -13,7 +13,8 @@ function grilla(req,res){
 }
 
 function combos(req,res){
-    Combo.find({eliminado: { $ne: true }},'_id description price code stock',)
+    let search=req.query.search.value
+    Combo.find({eliminado: { $ne: true }, $or: [{name: new RegExp(search,"i")},{code: new RegExp(search,"i")}]},'_id description price code stock',)
     .populate({
          path: 'producto',
          select: 'code  description -_id'
@@ -22,7 +23,7 @@ function combos(req,res){
         console.log(combos)
         res.json({
             data:combos,
-            draw: 1,
+            draw:req.draw,
             recordsTotal: combos.length,
             recordsFiltered: combos.length,
         })  

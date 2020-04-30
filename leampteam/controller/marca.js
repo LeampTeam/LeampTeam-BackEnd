@@ -12,11 +12,12 @@ function grilla(req,res){
 }
 
 function marcas(req,res){
-    Marca.find({eliminado: { $ne: true }},'_id name ')
+    let search=req.query.search.value
+    Marca.find({eliminado: { $ne: true },name: new RegExp(search,"i")},'_id name ')
     .exec((err,categorias)=>{
         res.json({
             data:categorias,
-            draw: 1,
+            draw: req.draw,
             recordsTotal: categorias.length,
             recordsFiltered: categorias.length,
         })  
