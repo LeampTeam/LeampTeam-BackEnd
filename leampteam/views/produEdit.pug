@@ -39,6 +39,9 @@ block content
                         label(for='exampleInputEmail1') Precio
                         input#exampleInputEmail1.form-control(type='number' step="any" aria-describedby='emailHelp' placeholder='Enter email' name='price' value= producto!=''?producto.price:'')
                     .form-group
+                        label(for='exampleInputEmail1') Precio Mayorista
+                        input#exampleInputEmail1.form-control(type='number' placeholder='Ingresar precio' name='priceMayor' value= producto!=''?producto.priceMayor:'')
+                    .form-group
                         label(for='exampleFormControlSelect1') Categoria
                         select#exampleFormControlSelect1.form-control(name='categoria')
                             option(value=0) Seleccione una categoria 

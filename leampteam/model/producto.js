@@ -1,12 +1,13 @@
 var mongoose= require('mongoose');
 var Schema =mongoose.Schema;
 
-
+/* Declaracion de campos en la base de datos */
 var ProducSchema=Schema({
    
     name:String,
     description:String,
     price:Number,
+    priceMayor: Number,
     code:String,  
     stock:Number,
     crateAt:String,
