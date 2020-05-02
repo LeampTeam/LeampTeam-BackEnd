@@ -245,6 +245,23 @@ function removeFilesOfUploads(res, file_path, message) {
         return res.status(200).send({ message: message })
     })
 }
+
+function borrarProducto(req,res){
+    console.log( req)
+    let IdProductos = req.params.id;
+    
+    Producto.findByIdAndUpdate(IdProductos, {eliminado:true} , { new: true }, (err, userUpdated) => {
+        if (err) return res.status(500).send({ message: 'Error en la peticion' })
+
+        if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
+
+        return res.redirect('/producto/grilla')
+     
+    })
+
+
+}
+
 module.exports={
     grilla,
     productos,
@@ -256,6 +273,7 @@ module.exports={
     getProducts,
     uploadImage,
     getImageFile,
-    getProductsPuntera
+    getProductsPuntera,
+    borrarProducto
 
 }

@@ -4,18 +4,20 @@ var moment = require('moment')
 var bcrypt=require('bcrypt-nodejs')
 var infousu=require('../middleware/informacionUsuario')
 
+//Esta funcion trae a los usuarios desde la base de datos
 function getUsers(req,res){
     let search=req.query.search.value
     User.find({eliminado: { $ne: true },name: new RegExp(search,"i")},'_id name surname email')
-    .exec((err,productos)=>{
+    .exec((err,usuario)=>{
         res.json({
-            data:productos,
+            data: usuario,
             draw: req.draw,
-            recordsTotal: productos.length,
-            recordsFiltered: productos.length,
+            recordsTotal: usuario.length,
+            recordsFiltered: usuario.length,
         })  
     })
 }
+
 function login(req,res){
     res.render('login')
 }
@@ -102,6 +104,7 @@ function loginUser(req,res){
         }
     })
 }
+//
 function listUser(req,res){
     let id=req.session.iduser;
     
@@ -143,6 +146,23 @@ function editUserPost(req,res){
                 return res.redirect('/users/listUser')
             })
 }
+
+function borrarUsuario(req,res){
+    console.log( req)
+    let IdUsuarios = req.params.id;
+    
+    User.findByIdAndUpdate(IdUsuarios, {eliminado:true} , { new: true }, (err, userUpdated) => {
+        
+        //Estas son validaciones que informan si hubo un error
+        if (err) return res.status(500).send({ message: 'Error en la peticion' })
+        if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
+
+        //
+        return res.redirect('/users/listUser')
+     
+    })
+}
+
 module.exports={
     getUsers,
     listUser,
@@ -153,5 +173,6 @@ module.exports={
     logout,
     createUser,
     editUser,
-    editUserPost
+    editUserPost,
+    borrarUsuario
 }
