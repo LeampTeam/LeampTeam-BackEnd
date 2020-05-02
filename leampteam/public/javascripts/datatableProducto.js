@@ -16,10 +16,13 @@ $(document).ready(function() {
             { "data": "stock" },
                   
             {"render": function ( data, type, row ) {
-                return '<a type="button" href=/producto/edit/'+row._id+' class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
-                +'<a type="button" href=/producto/delete/'+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></a>'
+                console.log(row._id);
+                return '<a type="button" href=/producto/edit/'+row._id+'  class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
+                +'<button id="borrar" name='+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></button>'
                 +'<button name="'+row._id+'" myimg="'+row.img+'" type="button" class="btn btn-primary " id="imagen" data-toggle="modal" data-target="#cargaImagen"><i class="fas fa-image"></i></button>'
+            
             }
+            
         }
         ],
         "columnDefs": [
@@ -33,7 +36,9 @@ $(document).ready(function() {
         ]
        
     } );
-    $( "#example").on( "click","#imagen" ,function() {
+    
+
+    $("#example").on( "click","#imagen" ,function() {
       
         console.log( $( this ).attr('name') );
         $('#productId').val($(  this ).attr('name'))
@@ -44,4 +49,23 @@ $(document).ready(function() {
         $('#imagenFoto').html(html)
             
         });
+        
+
+        $("#example").on( "click","#borrar" ,function() {
+                var id=$(this).attr('name')
+
+            alert('borrar')
+
+
+            $.get( "http://localhost:3000/producto/delete/"+id, function( data ) {
+               window.location.reload()
+              });
+
+
+
+           
+
+        });
+                
+
 } );

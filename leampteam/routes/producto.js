@@ -13,7 +13,7 @@ router.get('/edit/:id',check.checkSignIn,producto.edit);
 router.post('/edit',check.checkSignIn,producto.editPost);
 router.post('/getProductos',producto.getProducts);
 router.post('/getProducto',producto.getProduct);
-// router.post('/delete',check.checkSignIn,categoria.delete);
+router.get('/delete/:id',producto.borrarProducto);
 router.post('/upload',md_upload,producto.uploadImage );
 router.get('/getImageFile/:img',producto.getImageFile );
 
