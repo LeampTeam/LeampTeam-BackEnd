@@ -136,6 +136,21 @@ function getProducts(req,res){
         })
 }
 
+function getProductsPuntera(req,res){
+    
+    let search=req.body.search
+    let cate=req.body.cate
+    console.log(search)
+    console.log(cate)
+
+        Producto.find({categoria:cate,description: new RegExp(search,"i")})
+        .exec(function(err,producto){
+            
+            console.log(producto)    
+        return res.status(200).send({producto})
+    })   
+}
+
 function getProduct(req,res){
     
     let id=req.body.id
@@ -240,6 +255,7 @@ module.exports={
     getProduct,
     getProducts,
     uploadImage,
-    getImageFile
+    getImageFile,
+    getProductsPuntera
 
 }

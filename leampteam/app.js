@@ -15,6 +15,7 @@ var marcaRouter = require('./routes/marca');
 var fraganciaRouter = require('./routes/fragancia');
 var productoRouter = require('./routes/producto');
 var comboRouter = require('./routes/combo');
+var punteraRouter = require('./routes/puntera');
 
 const mongoose = require('mongoose');
 var check=require('./middleware/checkSingIn')
@@ -70,6 +71,7 @@ app.use('/marca', marcaRouter);
 app.use('/fragancia', fraganciaRouter);
 app.use('/producto', productoRouter);
 app.use('/combo', comboRouter);
+app.use('/puntera', punteraRouter);
 app.get('/',check.checkSignInLogin,function(req,res){
   
 

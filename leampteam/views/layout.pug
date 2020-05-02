@@ -19,10 +19,10 @@ html
     .jumbotron-fluid.contenedor
       .container-fluid.contenedor
         .row.contenedorheader
-          .col-md-2.border-dark.border
+          .col-md-2.border-info.border
             a(href='/index/index')
               .icono
-          .col-md-10.border-top.border-rigth.border-bottom.border-dark
+          .col-md-10.border-top.border-rigth.border-bottom.border-info
             .row.contenedor
               .col-md-10.p-4.text-center
                 if data
@@ -39,7 +39,7 @@ html
                         button.btn.btn-primary.mb-2(type='submit') Cambiar
                     a.dropdown-item(href='/users/logout') Cerrar Sesion
         .row.contenedorbody
-          .col-md-2.border.border-top-0.border-dark.p-3
+          .col-md-2.border.border-top-0.border-info.p-3
             if data
               ul.nav.flex-column
                 li.nav-item.p-3
@@ -54,5 +54,7 @@ html
                   a.nav-link.btn.btn-info(href='/fragancia/grilla') Fragancia
                 li.nav-item.p-3
                   a.nav-link.btn.btn-info(href='/marca/grilla') Marca
+                li.nav-item.p-3
+                  a.nav-link.btn.btn-info(href='/puntera/puntera') Crear Puntera
           .col-md-10
               block content
