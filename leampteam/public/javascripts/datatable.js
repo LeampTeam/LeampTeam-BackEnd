@@ -34,13 +34,20 @@ $(document).ready(function() {
 
     $("#example").on( "click","#borrar" ,function() {
         var id=$(this).attr('name')
+    
+    //Modal
+    let modal = confirm('Desea borrar el usuario')
+    if (modal == true) {
+        $.get("http://localhost:3000/users/borrarUser/"+id, function( data ) {
+            window.location.reload()
+           });
+           alert ('Se elimino el usuario')
+      } else {
+            alert ('No se elimino el usuario')
+      }
 
-    alert('borrar')
 
 
-    $.get("http://localhost:3000/users/listUser/"+id, function( data ) {
-       window.location.reload()
-      });
 
 
 

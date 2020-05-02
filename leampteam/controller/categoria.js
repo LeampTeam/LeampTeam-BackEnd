@@ -81,6 +81,22 @@ function editPost(req,res){
     })
 }
 
+function borrarCategoria(req,res){
+    console.log( req)
+    let IdCategoria = req.params.id;
+    
+    Categoria.findByIdAndUpdate(IdCategoria, {eliminado:true} , { new: true }, (err, userUpdated) => {
+        
+        //Estas son validaciones que informan si hubo un error
+        if (err) return res.status(500).send({ message: 'Error en la peticion' })
+        if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
+
+        //
+        return res.redirect('/users/listUser')
+     
+    })
+}
+
 module.exports={
     grilla,
     categorias,
