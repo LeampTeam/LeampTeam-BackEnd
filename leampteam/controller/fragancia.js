@@ -12,11 +12,12 @@ function grilla(req,res){
 }
 
 function fragancias(req,res){
-    Fragancia.find({eliminado: { $ne: true }},'_id name ')
+    let search=req.query.search.value
+    Fragancia.find({eliminado: { $ne: true },name: new RegExp(search,"i")},'_id name ')
     .exec((err,fragancia)=>{
         res.json({
             data:fragancia,
-            draw: 1,
+            draw: req.draw,
             recordsTotal: fragancia.length,
             recordsFiltered: fragancia.length,
         })  

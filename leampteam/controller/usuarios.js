@@ -5,11 +5,12 @@ var bcrypt=require('bcrypt-nodejs')
 var infousu=require('../middleware/informacionUsuario')
 
 function getUsers(req,res){
-    User.find({eliminado: { $ne: true }},'_id name surname email')
+    let search=req.query.search.value
+    User.find({eliminado: { $ne: true },name: new RegExp(search,"i")},'_id name surname email')
     .exec((err,productos)=>{
         res.json({
             data:productos,
-            draw: 1,
+            draw: req.draw,
             recordsTotal: productos.length,
             recordsFiltered: productos.length,
         })  

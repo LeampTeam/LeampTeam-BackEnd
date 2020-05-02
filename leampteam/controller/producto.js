@@ -16,15 +16,26 @@ function grilla(req,res){
 }
 
 function productos(req,res){
-    Producto.find({eliminado: { $ne: true }},'_id description price code stock categoria.name img')
+    let search=req.query.search.value
+    let start=parseInt(req.query.start)
+    let length=parseInt(req.query.length)
+    // $or: [ { quantity: { $lt: 20 } }, { price: 10 } ] }
+    console.log(req.query)
+    Producto.find({eliminado: { $ne: true }, $or: [{name: new RegExp(search,"i")},{code: new RegExp(search,"i")}]},
+    '_id description price code stock categoria.name img'
+    )
         .populate('categoria')
         .exec((err,producto)=>{
-           console.log(producto)
+            
+           var prodfilt= producto.slice(start,(start+length))
+           console.log(prodfilt)
+          
             res.json({
-                data:producto,
-                draw: 1,
+                data:prodfilt,
+                draw:req.draw,
                 recordsTotal: producto.length,
                 recordsFiltered: producto.length,
+               
             })  
         })
 }

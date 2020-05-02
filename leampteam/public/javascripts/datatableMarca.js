@@ -4,7 +4,7 @@ $(document).ready(function() {
         "serverSide": true,
         "ajax": {
             "url": '/marca/marcas',
-            "type": "POST"
+            
         },
         "columns": [
             

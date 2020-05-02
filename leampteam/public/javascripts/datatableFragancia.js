@@ -4,7 +4,7 @@ $(document).ready(function() {
         "serverSide": true,
         "ajax": {
             "url": '/fragancia/fragancias',
-            "type": "POST"
+            
         },
         "columns": [
             

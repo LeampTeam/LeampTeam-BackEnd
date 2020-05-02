@@ -4,7 +4,7 @@ $(document).ready(function() {
         "serverSide": true,
         "ajax": {
             "url": '/producto/productos',
-            "type": "POST"
+            
         },
         "columns": [
             
@@ -31,8 +31,8 @@ $(document).ready(function() {
                 "targets": 0 ,
                 "visible": false,
                 "searchable": false
-            }
-            
+            },
+        
         ]
        
     } );

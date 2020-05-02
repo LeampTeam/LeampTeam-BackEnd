@@ -4,7 +4,7 @@ $(document).ready(function() {
         "serverSide": true,
         "ajax": {
             "url": '/users/users',
-            "type": "POST"
+           
         },
         "columns": [
             
