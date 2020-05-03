@@ -81,12 +81,30 @@ function editPost(req,res){
     })
 }
 
+function borrarMarcas(req,res){
+    console.log(req)
+    let IdMarcas = req.params.id;
+    
+    Marca.findByIdAndUpdate(IdMarcas, {eliminado:true} , { new: true }, (err, userUpdated) => {
+        
+        //Estas son validaciones que informan si hubo un error
+        if (err) return res.status(500).send({ message: 'Error en la peticion' })
+        if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
+
+        //Aqui vamos a poner la ruta desde donde queremos obtener los datos
+        return res.redirect('/marca/grilla')
+     
+    })
+}
+
+
 module.exports={
     grilla,
     marcas,
     create,
     createPost,
     edit,
-    editPost
+    editPost,
+    borrarMarcas
 
 }

@@ -82,7 +82,7 @@ function editPost(req,res){
 }
 
 function borrarCategoria(req,res){
-    console.log( req)
+    console.log(req)
     let IdCategoria = req.params.id;
     
     Categoria.findByIdAndUpdate(IdCategoria, {eliminado:true} , { new: true }, (err, userUpdated) => {
@@ -92,7 +92,7 @@ function borrarCategoria(req,res){
         if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
 
         //
-        return res.redirect('/users/listUser')
+        return res.redirect('/categoria/grilla')
      
     })
 }
@@ -103,6 +103,7 @@ module.exports={
     create,
     createPost,
     edit,
-    editPost
+    editPost,
+    borrarCategoria,
 
 }

@@ -5,6 +5,7 @@ var check=require('../middleware/checkSingIn')
 
 router.get('/grilla',check.checkSignIn,categoria.grilla);
 router.get('/categorias',check.checkSignIn,categoria.categorias);
+router.get('/borrarCategoria/:id',categoria.borrarCategoria);
 router.get('/create',check.checkSignIn,categoria.create);
 router.post('/create',check.checkSignIn,categoria.createPost);
 router.get('/edit/:id',check.checkSignIn,categoria.edit);

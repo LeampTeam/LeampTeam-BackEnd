@@ -81,12 +81,30 @@ function editPost(req,res){
     })
 }
 
+function borrarFragancias(req,res){
+    console.log(req)
+    let IdFragancias = req.params.id;
+    
+    Fragancia.findByIdAndUpdate(IdFragancias, {eliminado:true} , { new: true }, (err, userUpdated) => {
+        
+        //Estas son validaciones que informan si hubo un error
+        if (err) return res.status(500).send({ message: 'Error en la peticion' })
+        if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
+
+        //
+        return res.redirect('/fragancia/grilla')
+     
+    })
+}
+
+
 module.exports={
     grilla,
     fragancias,
     create,
     createPost,
     edit,
-    editPost
+    editPost,
+    borrarFragancias
 
 }

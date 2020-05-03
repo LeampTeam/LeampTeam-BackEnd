@@ -46,12 +46,5 @@ $(document).ready(function() {
             alert ('No se elimino el usuario')
       }
 
-
-
-
-
-
-   
-
     });
 } );

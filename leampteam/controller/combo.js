@@ -125,12 +125,33 @@ function editPost(req,res){
     })
 }
 
+function borrarCombo(req,res){
+    console.log(req)
+    let IdCombo = req.params.id;
+    
+    Combo.findByIdAndUpdate(IdCombo, {eliminado:true} , { new: true }, (err, userUpdated) => {
+        
+        //Estas son validaciones que informan si hubo un error
+        if (err) return res.status(500).send({ message: 'Error en la peticion' })
+        if (!userUpdated) return res.status(404).send({ message: 'No se ha podido Actualizar' })
+
+        //
+        return res.redirect('/combo/grilla')
+     
+    })
+}
+
+
+
+
+
 module.exports={
     grilla,
     combos,
     create,
     createPost,
     edit,
-    editPost
+    editPost,
+    borrarCombo
 
 }

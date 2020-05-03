@@ -13,7 +13,7 @@ $(document).ready(function() {
                   
             {"render": function ( data, type, row ) {
                 return '<a type="button" href=/marca/edit/'+row._id+' class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
-                +'<a type="button" href=/marca/delete/'+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></a>'
+                +'<button id="borrar" name='+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></a>'
             }
         }
         ],
@@ -28,4 +28,25 @@ $(document).ready(function() {
         ]
        
     } );
+
+    $("#example").on( "click","#borrar" ,function() {
+        var id=$(this).attr('name')
+
+    //Modal
+    let modal = confirm('Desea borrar la marca')
+    if (modal == true) {
+        $.get("http://localhost:3000/marca/borrarMarcas/"+id, function( data ) {
+            window.location.reload()
+           });
+           alert ('Se elimino la marca')
+      } else {
+            alert ('No se elimino la marca')
+      }
+
+    });
+
+
+
+
+
 } );
