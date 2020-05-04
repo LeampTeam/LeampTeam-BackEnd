@@ -18,7 +18,12 @@ $( document ).ready(function() {
          if(prod.length>0){
  
          for(let i=0;i<prod.length;i++){
-             dropD+='<a class="dropdown-item" href="http://127.0.0.1:3000/puntera/guardarProductoPuntera/'+prod[i]._id+'">'+prod[i].code +'    '+prod[i].description+'</a>'
+             if(prod[i].estaEnPuntera=='true'){
+                dropD+='<a class="dropdown-item disabled" href="http://127.0.0.1:3000/puntera/guardarProductoPuntera/'+prod[i]._id+'">'+prod[i].code +'    '+prod[i].description+'</a>'
+             }else{
+                dropD+='<a class="dropdown-item" href="http://127.0.0.1:3000/puntera/guardarProductoPuntera/'+prod[i]._id+'">'+prod[i].code +'    '+prod[i].description+'</a>'
+             }
+            
          }
             $('.searched').html(dropD)
             $('.searched').show()

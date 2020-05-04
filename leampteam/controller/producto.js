@@ -20,10 +20,9 @@ function productos(req,res){
     let start=parseInt(req.query.start)
     let length=parseInt(req.query.length)
     // $or: [ { quantity: { $lt: 20 } }, { price: 10 } ] }
-    console.log(req.query)
+   
     Producto.find({eliminado: { $ne: true }, $or: [{name: new RegExp(search,"i")},{code: new RegExp(search,"i")}]},
-    '_id description price code stock categoria.name img'
-    )
+    '_id description price code stock categoria.name img estaEnPuntera')
         .populate('categoria')
         .exec((err,producto)=>{
             
@@ -68,6 +67,7 @@ function createPost(req,res){
         producto.price=params.price;
         producto.priceMayor=params.priceMayor;
         producto.marca=params.marca;
+        producto.estaEnPuntera='false'
         if(params.fragancia==0){
             producto.esFragancia=false
             producto.fragancia=null

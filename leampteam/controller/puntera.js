@@ -1,6 +1,8 @@
 var infousu=require('../middleware/informacionUsuario')
 var Categoria= require('../model/categoria');
 var Puntera=require('../model/puntera')
+var Producto=require('../model/producto')
+
 
 
 function puntera(req,res){
@@ -30,24 +32,32 @@ function puntera(req,res){
      })
 }
 function guardarProductoPuntera(req,res){
+
     let id=req.params.id
-    console.log(id)
+    var splitPath=req.headers.referer.split('/')
+    console.log('path',splitPath)
+    
     Puntera.find({},function(err,puntera){
+        Producto.findByIdAndUpdate(id,{estaEnPuntera:'true'},function(err,prod){
             if(puntera.length>0){
-                console.log(puntera)
                 puntera[0].productos.push(id)
-                 puntera[0].save()
-                res.redirect('/puntera/puntera')
+                puntera[0].save()
+                res.redirect('/'+splitPath[3]+'/'+splitPath[4])
+            
+            
             }else{
                 let punteraGuardar=new Puntera();
                 punteraGuardar.productos.push(id)
                 punteraGuardar.save(function(err,save){
-                res.redirect('/puntera/puntera')
-            })
-        }
+                    res.redirect('/'+splitPath[3]+'/'+splitPath[4])
+                
+                })
+            }
+
+
+        }).populate('productos')
+    })
     
-    
-    }).populate('productos')
 }
 
 function sacarPuntera(req,res){
@@ -55,13 +65,14 @@ function sacarPuntera(req,res){
     let id=req.params.id
 
     Puntera.find({},function(err,puntera){
-
+        Producto.findByIdAndUpdate(id,{estaEnPuntera:'false'},function(err,prod){
         let productos=puntera[0].productos
-       let pos=productos.indexOf(id)
-       puntera[0].productos.splice(pos,1)
-       puntera[0].save(function(err,save){
-        res.redirect('/puntera/puntera')
-       });
+        let pos=productos.indexOf(id)
+        puntera[0].productos.splice(pos,1)
+            puntera[0].save(function(err,save){
+                res.redirect('/puntera/puntera')
+            });
+        })
        
     })
 }

@@ -16,10 +16,20 @@ $(document).ready(function() {
             { "data": "stock" },
                   
             {"render": function ( data, type, row ) {
-                console.log(row._id);
-                return '<a type="button" href=/producto/edit/'+row._id+'  class="btn btn-light"><i class="fas fa-pencil-alt"></i></a>'
-                +'<button id="borrar" name='+row._id+' class="btn btn-light"><i class="fas fa-trash"></i></button>'
+                console.log(row);
+                if(row.estaEnPuntera=='true'){
+                    return '<a type="button" href=/producto/edit/'+row._id+'  class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>'
+                +'<button id="borrar" name='+row._id+' class="btn btn-danger"><i class="fas fa-trash"></i></button>'
                 +'<button name="'+row._id+'" myimg="'+row.img+'" type="button" class="btn btn-primary " id="imagen" data-toggle="modal" data-target="#cargaImagen"><i class="fas fa-image"></i></button>'
+                +'<a name="'+row._id+'" myimg="'+row.img+'" type="button" class="btn btn-success disabled" href="/puntera/guardarProductoPuntera/'+row._id+'"><i class="fas fa-share-square"></i></a>'
+                }else{
+                    return '<a type="button" href=/producto/edit/'+row._id+'  class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>'
+                +'<button id="borrar" name='+row._id+' class="btn btn-danger"><i class="fas fa-trash"></i></button>'
+                +'<button name="'+row._id+'" myimg="'+row.img+'" type="button" class="btn btn-primary " id="imagen" data-toggle="modal" data-target="#cargaImagen"><i class="fas fa-image"></i></button>'
+                +'<a name="'+row._id+'" myimg="'+row.img+'" type="button" class="btn btn-success" href="/puntera/guardarProductoPuntera/'+row._id+'"><i class="fas fa-share-square"></i></a>'
+                }
+
+                
             
             }
             
