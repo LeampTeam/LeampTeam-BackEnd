@@ -59,7 +59,7 @@ function createPost(req,res){
     let params=req.body;
     console.log(params)
     let producto =new Producto();
-    if(params.name ){
+    if(params.name && params.categoria && params.code && params.description && params.stock && params.price && params.marca){
         producto.name=params.name;
         producto.code=params.code;
         producto.description=params.description;
@@ -90,11 +90,16 @@ function createPost(req,res){
                 res.render('produCreate',{message:'Error al guardar'})
             }
         })
+
     }else{
-        categoria.name=params.name;
-        categoria.CreateAt=moment().unix();
-        res.render('produCreate',{user,message:'Completa todos los campos'}
-        )
+        
+        Categoria.find({}, function (error, categorias){
+            Marca.find({},function(error,marcas){
+                Fragancia.find({},function(error,fragancias){
+                res.render('produCreate',{producto , marcas, categorias, fragancias})
+                })
+            })
+        })
     }
 }
 
@@ -200,9 +205,9 @@ function uploadImage(req, res) {
     console.log(req.body.productId)
     var productid = req.body.productId
     if (req.files) {
-        var file_path = req.files.image.path;
+        var file_path =req.files.image.path;
         console.log(file_path)
-        var file_split = file_path.split('/');
+        var file_split = file_path.split('\\');
         console.log(file_split)
         var file_name = file_split[2];
         console.log(file_name)
