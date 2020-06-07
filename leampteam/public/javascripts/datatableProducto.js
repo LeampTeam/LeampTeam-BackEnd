@@ -2,6 +2,7 @@ $(document).ready(function() {
     var t=  $('#example').DataTable( {
         "processing": true,
         "serverSide": true,
+        "pageLength": 10000,
         "ajax": {
             "url": '/producto/productos',
             
